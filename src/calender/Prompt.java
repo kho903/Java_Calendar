@@ -15,10 +15,13 @@ public class Prompt {
 		System.out.println("반복 횟수를 입력하세요.");
 		System.out.print("반복횟수 : ");
 		int num = scanner.nextInt();
+		int year;
 
 		int i = 0;
 		while (true) {
-
+			System.out.println("연도를 입력하세요");
+			System.out.print("YEAR> ");
+			year = scanner.nextInt();
 			System.out.println("달을 입력하세요");
 			System.out.print(PROMPT);
 			int month = scanner.nextInt();
@@ -29,7 +32,7 @@ public class Prompt {
 				continue;
 			}
 
-			cal.printCalendar(2020, month);
+			cal.printCalendar(year, month);
 			i++;
 			if (i == num) {
 				break;
