@@ -27,19 +27,20 @@ public class calender {
 
 		int weekday = 1;
 		// get weekday automatically
-		for(int i=1; i<year;i++) {
-			if(isLeapYear(i)) {
-				weekday+=366;
-			}else {
-				weekday+=365;
+		for (int i = 1; i < year; i++) {
+			if (isLeapYear(i)) {
+				weekday += 366;
+			} else {
+				weekday += 365;
 			}
 		}
-		for(int j=0; j<month-1;j++) {
-			if(isLeapYear(year)) {
+		for (int j = 0; j < month - 1; j++) {
+			if (isLeapYear(year)) {
 				weekday += LEAP_MAX_DAYS[j];
-			}else weekday+=MAX_DAYS[j];
+			} else
+				weekday += MAX_DAYS[j];
 		}
-		weekday %=7;
+		weekday %= 7;
 
 		// print blank space
 		for (int i = 0; i < weekday; i++) {
@@ -60,10 +61,42 @@ public class calender {
 		}
 		System.out.println();
 		System.out.println();
-//		System.out.println(" 1  2  3  4  5  6  7");
-//		System.out.println(" 8  9 10 11 12 13 14");
-//		System.out.println("15 16 17 18 19 20 21");
-//		System.out.println("22 23 24 25 26 27 28");
+	}
+
+	// 강의
+	// 1970년을 기준으로
+	private int getWeekDay(int year, int month, int day) {
+		int syear = 1970;
+		final int STANDARD_WEEKDAY = 3; // 1970/Jan/1st = Thursday
+
+		int count = 0;
+
+		for (int i = syear; i < year; i++) {
+			int delta = isLeapYear(i) ? 366 : 365;
+			count += delta;
+		}
+
+		for (int i = 1; i < month; i++) {
+			int delta = getMaxDaysOfMonth(year, i);
+			count += delta;
+		}
+
+		count += day - 1;
+
+		int weekDay = (count + STANDARD_WEEKDAY) % 7;
+
+		System.out.println(weekDay);
+		return weekDay;
+	}
+
+	// simple test code here
+	public static void main(String[] arge) {
+		calender c = new calender();
+		c.getWeekDay(1970, 1, 1);
+		c.getWeekDay(1971, 1, 1);
+		c.getWeekDay(1972, 1, 1);
+		c.getWeekDay(1973, 1, 1);
+		c.getWeekDay(1974, 1, 1);
 	}
 
 }
