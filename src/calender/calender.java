@@ -25,18 +25,21 @@ public class calender {
 		System.out.println("   일     월     화     수     목     금     토");
 		System.out.println("--------------------");
 
+		int weekday = 1;
 		// get weekday automatically
-		int weekday = 365 * (year - 1);
-		if (isLeapYear(year)) {
-			for (int i = 0; i < month-1; i++) {
-				weekday += LEAP_MAX_DAYS[i];
-			}
-		} else {
-			for (int i = 0; i < month-1; i++) {
-				weekday += MAX_DAYS[i];
+		for(int i=1; i<year;i++) {
+			if(isLeapYear(i)) {
+				weekday+=366;
+			}else {
+				weekday+=365;
 			}
 		}
-		weekday %= 7;
+		for(int j=0; j<month-1;j++) {
+			if(isLeapYear(year)) {
+				weekday += LEAP_MAX_DAYS[j];
+			}else weekday+=MAX_DAYS[j];
+		}
+		weekday %=7;
 
 		// print blank space
 		for (int i = 0; i < weekday; i++) {
