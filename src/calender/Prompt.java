@@ -20,22 +20,24 @@ public class Prompt {
 	 * @return 0 ~ 6 (0 = Sunday, 6 = Saturday_
 	 */
 	public int parseDay(String week) {
-		if (week.equals("su"))
+		switch (week) {
+		case "su":
 			return 0;
-		else if (week.equals("mo"))
+		case "mo":
 			return 1;
-		else if (week.equals("tu"))
+		case "tu":
 			return 2;
-		else if (week.equals("we"))
+		case "we":
 			return 3;
-		else if (week.equals("th"))
+		case "th":
 			return 4;
-		else if (week.equals("fr"))
+		case "fr":
 			return 5;
-		else if (week.equals("sa"))
+		case "sa":
 			return 6;
-		else
+		default:
 			return 0;
+		}
 	}
 
 //	+-------------------+
@@ -58,21 +60,28 @@ public class Prompt {
 
 		int weekday;
 
-		while (true) {
+		boolean isLoop = true;
+		while (isLoop) {
 			System.out.println("명령 (1, 2, 3, h, q)");
-
 			String cmd = scanner.next();
-			if (cmd.equals("1"))
-				cmdRegister(scanner, cal);
-			else if (cmd.equals("2"))
-				cmdSearch(scanner, cal);
-			else if (cmd.equals("3"))
-				cmdCal(scanner, cal);
-			else if (cmd.equals("h"))
-				printMenu();
-			else if (cmd.equals("q"))
-				break;
 
+			switch (cmd) {
+			case "1":
+				cmdRegister(scanner, cal);
+				break;
+			case "2":
+				cmdSearch(scanner, cal);
+				break;
+			case "3":
+				cmdCal(scanner, cal);
+				break;
+			case "h":
+				printMenu();
+				break;
+			case "q":
+				isLoop = false;
+				break;
+			}
 		}
 		System.out.println("완료.");
 		scanner.close();
@@ -114,8 +123,8 @@ public class Prompt {
 		System.out.println("날짜를 입력해주세요 (yyyy-MM-dd).");
 		String date = s.next();
 		String text = "";
-		System.out.println("일정을 입력해 주세요. (문장의 끝에 ;를 입력해 주세요.)"); 
-		while(true) {
+		System.out.println("일정을 입력해 주세요. (문장의 끝에 ;를 입력해 주세요.)");
+		while (true) {
 			String word = s.next();
 			text += word + " ";
 			if (word.endsWith(";")) {
