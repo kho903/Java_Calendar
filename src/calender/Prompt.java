@@ -48,8 +48,6 @@ public class Prompt {
 //	+-------------------+
 //	명령 (1, 2, 3, h, q)
 
-	private final static String PROMPT = "cal> ";
-
 	public void runPrompt() throws ParseException {
 
 		printMenu();
@@ -57,8 +55,6 @@ public class Prompt {
 		// 숫자를 입력받아 해당하는 달의 최대 일수를 출력하는 프로그램
 		Scanner scanner = new Scanner(System.in);
 		calender cal = new calender();
-
-		int weekday;
 
 		boolean isLoop = true;
 		while (isLoop) {
@@ -108,14 +104,13 @@ public class Prompt {
 		System.out.println("[일정 검색]");
 		System.out.println("날짜를 입력해주세요 (yyyy-MM-dd).");
 		String date = s.next();
-		String plan = "";
-		try {
-			plan = c.searchPlan(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			System.err.println("일정 검색 중 오류가 발생했습니다.");
+		PlanItem plan;
+		plan = c.searchPlan(date);
+		if (plan != null) {
+			System.out.println(plan.detail);
+		} else {
+			System.out.println("일정이 없습니다.");
 		}
-		System.out.println(plan);
 	}
 
 	private void cmdRegister(Scanner s, calender c) throws ParseException {
@@ -124,13 +119,15 @@ public class Prompt {
 		String date = s.next();
 		String text = "";
 		System.out.println("일정을 입력해 주세요. (문장의 끝에 ;를 입력해 주세요.)");
+		String word;
 		while (true) {
-			String word = s.next();
+			word = s.next();
 			text += word + " ";
 			if (word.endsWith(";")) {
 				break;
 			}
 		}
+		text = text.replace(";", "");
 		c.registerPlan(date, text);
 	}
 
